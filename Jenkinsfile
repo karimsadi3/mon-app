@@ -1,8 +1,8 @@
-// Jenkinsfile - Pipeline declaratif
 pipeline {
     agent any
 
     stages {
+
         stage('Build') {
             steps {
                 echo '=== Etape 1 : Build ==='
@@ -22,8 +22,15 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo '=== Etape 3 : Deploy ==='
-                echo 'Deploiement en production...'
-                echo 'Application deployee avec succes !'
+                echo 'Deploiement en cours...'
+
+                // créer le dossier de déploiement
+                bat 'if not exist C:\\deploy\\mon-app mkdir C:\\deploy\\mon-app'
+
+                // copier les fichiers
+                bat 'xcopy /E /I /Y * C:\\deploy\\mon-app'
+
+                echo 'Application deployee dans C:\\deploy\\mon-app'
             }
         }
     }
